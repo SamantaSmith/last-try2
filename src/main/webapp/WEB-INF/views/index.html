@@ -14,9 +14,32 @@
         <input type="submit" value="Search"/>
     </form>
 
-    <h1>
-        <span th:text="${message}"></span>
-    </h1>
+    <h3><a href="/people/new">New User</a> </h3>
+
+
+    <table border="1" th:cellpadding="5"  >
+
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Action</th>
+        </tr>
+
+
+        <th:block th:each="msg : ${message}">
+            <tr>
+            <th><a th:href="@{/people/{id}(id=${msg.getId()})}" th:text="${msg.getId()}"></a></th>
+                <th><span  th:text="${msg.getName()}"></span></th>
+                <th><span th:text="${msg.getEmail()}"></span></th>
+                <th><span th:text="${msg.getAddress()}"></span></th>
+            </tr>
+        </th:block>
+
+
+    </table>
+
 </div>
 </body>
 </html>
