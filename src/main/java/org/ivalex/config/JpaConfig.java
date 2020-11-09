@@ -42,9 +42,7 @@ public class JpaConfig {
     public LocalEntityManagerFactoryBean entityManagerFactory() {
 
         LocalEntityManagerFactoryBean factoryBean = new LocalEntityManagerFactoryBean();
-
         factoryBean.setPersistenceUnitName("UsersDB");
-
         return factoryBean;
     }
 

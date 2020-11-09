@@ -1,5 +1,6 @@
 package org.ivalex;
 
+import org.ivalex.config.UserDaoImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +13,12 @@ import java.util.Map;
 @RequestMapping("/people")
 public class UserController {
 
-    private UserService service;
-    public UserController(UserService service) {
-        this.service = service;
-    }
 
     @GetMapping("")
     public ModelAndView hello() {
 
         ModelAndView mav = new ModelAndView("index");
-        List<User> userList = service.listAll();
+        List<User> userList = UserDaoImpl.listAll();
         mav.addObject("message", userList);
         return mav;
     }
@@ -29,7 +26,7 @@ public class UserController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
 
-        model.addAttribute("person", service.showById(id));
+        model.addAttribute("person", UserDaoImpl.showById(id));
         return "/show";
     }
 
@@ -43,14 +40,14 @@ public class UserController {
     @PostMapping
     public String create(@ModelAttribute("person") User user) {
 
-        service.add(user);
+        UserDaoImpl.add(user);
         return "redirect:/people";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
 
-        model.addAttribute("person", service.showById(id));
+        model.addAttribute("person", UserDaoImpl.showById(id));
         return "edit";
     }
 
@@ -58,14 +55,15 @@ public class UserController {
     public String update(@ModelAttribute("person")User user, @PathVariable("id") Long id) {
 
 
-        service.update(id, user);
+        UserDaoImpl.update(id, user);
         return "redirect:/people";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
 
-        service.delete(id);
+
+        UserDaoImpl.delete(id);
         return "redirect:/people";
     }
 }
