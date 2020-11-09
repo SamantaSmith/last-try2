@@ -1,13 +1,13 @@
-package org.ivalex;
+package org.ivalex.controller;
 
-import org.ivalex.config.UserDaoImpl;
+import org.ivalex.model.User;
+import org.ivalex.dao.UserDaoImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/people")

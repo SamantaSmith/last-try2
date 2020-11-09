@@ -1,4 +1,4 @@
-package org.ivalex;
+package org.ivalex.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
