@@ -25,4 +25,21 @@ public class UserService {
         User user = optionalUser.orElse(null);
         return user;
     }
+
+    public void update(Long id, User updatedUser) {
+
+        User toBeUpdated = showById(id);
+
+        toBeUpdated.setName(updatedUser.getName());
+        toBeUpdated.setEmail(updatedUser.getEmail());
+        toBeUpdated.setAddress(updatedUser.getAddress());
+
+        repo.save(toBeUpdated);
+
+    }
+
+    public void delete(Long id) {
+
+        repo.deleteById(id);
+    }
 }

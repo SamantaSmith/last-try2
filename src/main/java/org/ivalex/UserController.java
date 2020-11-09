@@ -13,7 +13,6 @@ import java.util.Map;
 public class UserController {
 
     private UserService service;
-
     public UserController(UserService service) {
         this.service = service;
     }
@@ -22,9 +21,7 @@ public class UserController {
     public ModelAndView hello() {
 
         ModelAndView mav = new ModelAndView("index");
-
         List<User> userList = service.listAll();
-
         mav.addObject("message", userList);
         return mav;
     }
@@ -38,9 +35,8 @@ public class UserController {
 
 
     @GetMapping("/new")
-    public String newPerson(Model model) {
+    public String newPerson(@ModelAttribute("person") User user) {
 
-        model.addAttribute("person", new User());
         return "new_user";
     }
 
@@ -48,6 +44,28 @@ public class UserController {
     public String create(@ModelAttribute("person") User user) {
 
         service.add(user);
+        return "redirect:/people";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") Long id) {
+
+        model.addAttribute("person", service.showById(id));
+        return "edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("person")User user, @PathVariable("id") Long id) {
+
+
+        service.update(id, user);
+        return "redirect:/people";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") Long id) {
+
+        service.delete(id);
         return "redirect:/people";
     }
 }
